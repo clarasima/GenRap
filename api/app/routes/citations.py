@@ -85,9 +85,9 @@ def update_citation():
     try:
         if citation_id:
             # Ensure the publication belongs to the user
-            citation = citations_collection.find_one({"user_id": user_id, "_id": ObjectId(citation_id)})
+            citation = citations_collection.find_one({"_id": ObjectId(citation_id)})
             if not citation:
-                return jsonify({'error': 'Citation not found or does not belong to this user'}), 404
+                return jsonify({'error': 'Citation not found'}), 404
             
             # Update the publication
             result = citations_collection.update_one(

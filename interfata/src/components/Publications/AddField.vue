@@ -36,10 +36,6 @@ const deleteField = (key) => {
 </script>
 
 <template>
-  <p>
-
-  <button @click="toggleAddField">{{ addFieldMode ? 'Cancel Add Field' : 'Add Field' }}</button>
-  </p>
   <!-- ADD FIELD -->
   <div v-if="editItem.addedFields">
     <div v-for="(value, key) in editItem.addedFields" :key="key">
@@ -48,6 +44,10 @@ const deleteField = (key) => {
       <button @click="deleteField(key)">Delete field {{ key }}</button>
     </div>
   </div>
+
+  <p>
+<button @click="toggleAddField">{{ addFieldMode ? 'Cancel Add Field' : 'Add Field' }}</button>
+</p>
 
   <div v-if="addFieldMode">
     <input v-model="newFieldName" placeholder="Field Name" />

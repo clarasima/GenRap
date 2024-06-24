@@ -12,7 +12,7 @@ const props = defineProps({
 
 <template>
   <div>
-    <div v-if="props?.edited && !props.fromReport" class="rounded-tag"
+    <div v-if="props?.edited " class="rounded-tag"
       style="background-color: green; width: 70px">Edited ✓</div>
     <h3>{{ props.item.title }}</h3>
     <p>Authors: {{ (typeof props.item.authors === 'string' ||

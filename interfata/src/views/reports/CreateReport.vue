@@ -105,7 +105,7 @@ function removeField(field) {
 <template>
     <div v-if="isPendingRefresh"><div class="spinner"></div> Pending </div>
     <div v-else>
-        <h4>Choose filter option</h4>
+        <h3>Choose filter option</h3>
         <label class="report-option" @click="setReportOption('custom')">
             <input class="input-custom" type="radio" v-model="reportOption" value="custom"> Custom Selection
         </label>
@@ -121,7 +121,7 @@ function removeField(field) {
         <p> <button @click="selectPublications">Select</button>
             <button @click="deselectPublications">Deselect all</button></p>
 
-        <h4>Manage Fields</h4>
+        <h3>Manage Fields</h3>
         <div>
             <input v-model="newField" placeholder="New Field" />
             <button @click="addField"> Confirm Adding {{ newField }} in report</button>
@@ -131,6 +131,7 @@ function removeField(field) {
                 {{ field }} <button @click="removeField(field)">Remove</button>
             </li>
         </ul>
+        <h3>Make Report</h3>
         <button @click="getSelectedPublications('excel', 'publications.xlsx')">Get Excel Report</button>
         <button @click="getSelectedPublications('csv', 'publications.csv')">Get CSV Report</button>
         <button @click="getSelectedPublications('txt', 'publications.txt')">Get TXT Report</button>

@@ -1,26 +1,37 @@
 <script setup>
-import { getToken } from '@/composables/tokenManagement';
-import { useUser, getUserName } from '@/composables/getUser';
-import { ref, onMounted } from "vue";
-const { token } = getToken();
-const name = ref("")
-const isPending = ref(false)
-
-onMounted(async () => {
-  isPending.value = true;
-  await useUser("getUser");
-  name.value = getUserName();
-  isPending.value = false;
-});
-
 </script>
 
 <template>
-  <div v-if="isPending">
-    <div class="spinner"></div> Pending
+  <div>
+    <main>
+      <section class="intro">
+        <h2>Welcome to GenRap!</h2>
+        <p>
+          Our application helps you automatically manage your academic
+          publications and citations, providing you with the ability to quickly
+          generate detailed reports.
+        </p>
+      </section>
+
+      <section class="features">
+        <h2>Key Features</h2>
+        <ul>
+          <li>Automated extraction of publications and citations</li>
+          <li>Report generation in Excel, CSV, and TXT formats</li>
+          <li>User-friendly and easy-to-use interface</li>
+        </ul>
+      </section>
+
+      <section class="contact-support">
+        <h2>Contact and Support</h2>
+        <p>
+          For questions or assistance, you can contact us at
+          <a href="mailto:clara.sima17@gmail.com">clara.sima17@gmail.com</a>.
+        </p>
+      </section>
+    </main>
+
   </div>
-  <h1 v-else-if="token">Welcome back to GenRap, {{ name }}!</h1>
-  <h1 v-else>Welcome to GenRap!</h1>
 </template>
 
 <style scoped>
@@ -47,4 +58,38 @@ onMounted(async () => {
   clip-path: inset(17% 0 17% 0);
   /* Clip 20% from top and bottom, showing the middle 60% */
 }
+
+main {
+  padding: 2em;
+}
+.intro,
+.features,
+.auth-options,
+.contact-support,
+.testimonials {
+  margin-bottom: 2em;
+}
+h1,
+h2 {
+  color: var(--primary);
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+ul li {
+  background: #e0e0e0;
+  margin: 0.5em 0;
+  padding: 0.5em;
+  border-radius: 5px;
+}
+
+a {
+  color: blue;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
 </style>

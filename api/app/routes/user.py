@@ -22,13 +22,13 @@ def create_user():
         return jsonify({"errors": error_message}), 400
 
     hashed_password = generate_password_hash(data['password'], method='sha256')
-    new_user = User(_id=str(uuid.uuid4()), data=data, password=hashed_password)
+    new_user = User(_id=data["username"], data=data, password=hashed_password)
     try:
         result = users_collection.insert_one(new_user.to_dict())
         if result.acknowledged:
             return jsonify({'result': 'User added', 'user_id': str(result.inserted_id)}), 201 # 201 Created
         else:
-            abort(500, description="Failed to add user")
+            abort(500, description="An error occurred: Failed to add user")
     except Exception as e:
         if "duplicate key error" in str(e):
             abort(409, description="Username already exists")
@@ -47,21 +47,6 @@ def get_user_by_id(user_id):
             return jsonify(user)
         else:
             abort(404, description="User not found")
-    except Exception as e:
-        abort(500, description=f"An error occurred: {e}")
-
-# currently unused
-@bp.route('/user', methods=['GET'])
-def get_users():
-    try:
-        result = users_collection.find()
-        users = []
-        for user in result:
-            user['_id'] = str(user['_id'])
-            users.append(user)
-            if 'password' in user:
-                del user['password']
-        return jsonify({'result': users})
     except Exception as e:
         abort(500, description=f"An error occurred: {e}")
 

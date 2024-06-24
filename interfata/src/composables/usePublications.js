@@ -22,33 +22,8 @@ export function usePublications() {
     }
   }
 
-  function startEdit(index) {
-    // Logic for starting edit
-  }
-
-  function confirmMatch(index, isMatch) {
-    // Logic for confirming match
-  }
-
-  function selectSource(index, source) {
-    // Logic for selecting source
-  }
-
-  function goToCitationsView(id) {
-    // Logic for navigating to citations view
-  }
-
-  function togglePublicationSelection(publicationId) {
-    // Logic for toggling publication selection
-  }
-
   return {
     data,
-    loadData,
-    startEdit,
-    confirmMatch,
-    selectSource,
-    goToCitationsView,
-    togglePublicationSelection
+    loadData
   };
 }
