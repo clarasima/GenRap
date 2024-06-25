@@ -11,13 +11,14 @@ const startYear = ref('');
 const endYear = ref('');
 const newField = ref('');
 const selectedFields = ref(['title', 'authors', 'year', 'category', 'indexed', 'type', 'impactFactor']);
+const showFieldManager = ref(false);
 
 // get data
 onMounted(async () => {
     await loadData();
     await useUser("getUser");
     let userFields = await getUserFields();
-    if(userFields?.length)
+    if (userFields?.length)
         selectedFields.value = await getUserFields();
 });
 
@@ -82,7 +83,7 @@ async function getSelectedPublications(format, name) {
     }
 }
 
-function setReportOption(str){
+function setReportOption(str) {
     reportOption.value = str;
 }
 
@@ -100,10 +101,16 @@ function removeField(field) {
     }
 }
 
+function toggleFieldManager() {
+    showFieldManager.value = !showFieldManager.value;
+}
+
 </script>
 
 <template>
-    <div v-if="isPendingRefresh"><div class="spinner"></div> Pending </div>
+    <div v-if="isPendingRefresh">
+        <div class="spinner"></div> Pending
+    </div>
     <div v-else>
         <h3>Choose filter option</h3>
         <label class="report-option" @click="setReportOption('custom')">
@@ -119,23 +126,41 @@ function removeField(field) {
             <input class="input-custom" type="number" v-model="endYear" placeholder="End Year">
         </label>
         <p> <button @click="selectPublications">Select</button>
-            <button @click="deselectPublications">Deselect all</button></p>
+            <button @click="deselectPublications">Deselect all</button>
+        </p>
 
         <h3>Manage Fields</h3>
-        <div>
-            <input v-model="newField" placeholder="New Field" />
-            <button @click="addField"> Confirm Adding {{ newField }} in report</button>
-        </div>
-        <ul>
-            <li v-for="field in selectedFields" :key="field">
-                {{ field }} <button @click="removeField(field)">Remove</button>
+        <button @click="toggleFieldManager">
+            {{ showFieldManager ? 'Hide' : 'Show' }} Field Manager
+        </button>
+        <!-- <div v-show="!showFieldManager">Actual Fields: {{ selectedFields.join(',') }}</div> -->
+        <ul v-show="!showFieldManager" class="field-list">
+            <li v-for="field in selectedFields" :key="field" class="field-item">
+                {{ field }}
             </li>
         </ul>
+        <div v-show="showFieldManager">
+            <div>
+                <input v-model="newField" placeholder="New Field" />
+                <button @click="addField"> Confirm Adding {{ newField }} in report</button>
+            </div>
+            <ul  class="field-list">
+                <li v-for="field in selectedFields" :key="field">
+                   <div class="field-item">
+                    {{ field }} 
+                   </div>
+                    
+                    <button @click="removeField(field)">Remove</button>
+                </li>
+            </ul>
+        </div>
+
         <h3>Make Report</h3>
         <button @click="getSelectedPublications('excel', 'publications.xlsx')">Get Excel Report</button>
         <button @click="getSelectedPublications('csv', 'publications.csv')">Get CSV Report</button>
         <button @click="getSelectedPublications('txt', 'publications.txt')">Get TXT Report</button>
-        <PublicationList  :data="data" from="report" :selectedPublications="selectedPublications" @togglePublicationSelection="togglePublicationSelection"/>
+        <PublicationList :data="data" from="report" :selectedPublications="selectedPublications"
+            @togglePublicationSelection="togglePublicationSelection" />
     </div>
 </template>
 
@@ -175,4 +200,23 @@ ul li {
     margin-bottom: 5px;
 }
 
+
+.field-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.field-item {
+  background-color: #14b8a6; /* Teal 500 */
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  white-space: nowrap; /* Prevents wrapping of text within the item */
+}
 </style>

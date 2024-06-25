@@ -95,13 +95,27 @@ function splitPublications(index) { // delete old publication and add 2 new ones
 
 <template>
   <div>
+    <div v-if="!isPendingRefresh" class="data-summary">
+    <div class="card">
+      <h4>Total Publications</h4>
+      <p class="count">{{ data.length }}</p>
+    </div>
+    <div class="card">
+      <h4>Scholar</h4>
+      <p class="count">{{ scholarCount }}</p>
+    </div>
+    <div class="card">
+      <h4>DBLP</h4>
+      <p class="count">{{ dblpCount }}</p>
+    </div>
+  </div>
     <!-- REFRESH DATA -->
     <div v-if="isPendingRefresh"><div class="spinner"></div>Refreshing</div>
     <button v-else @click="getData">Update data from dblp and scholar</button>
     <div v-if="error" style="color:red">{{ error }}</div>
-    <div v-if="error === false" style="color:green">The data has been refreshed successfully.</div>
-    <p v-if="!isPendingRefresh">We were able to extract data for {{ data.length }} publications. From scholar there are {{ scholarCount }} and from
-      dblp there are {{ dblpCount }}.</p>
+    <!-- <div v-if="error === false" style="color:#14b8a6">The data has been refreshed successfully.</div> -->
+    <!-- <p v-if="!isPendingRefresh">We were able to extract data for {{ data.length }} publications. From scholar there are {{ scholarCount }} and from
+      dblp there are {{ dblpCount }}.</p> -->
 
     <!-- ADD PUBLICATION -->
     <button v-if="!isAddPubMode" @click="startAdd"> Add publication</button>
@@ -112,3 +126,31 @@ function splitPublications(index) { // delete old publication and add 2 new ones
       @splitPublications="splitPublications" @startEdit="startEdit" />
   </div>
 </template>
+
+<style scoped>
+.data-summary {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 150px;
+}
+
+.card h3 {
+  margin: 0 0 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+.card .count {
+  font-size: 18px;
+  font-weight: bold;
+  color: #14b8a6; /* Adjust this color to match your theme */
+}</style>

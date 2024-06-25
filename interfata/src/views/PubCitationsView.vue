@@ -31,7 +31,7 @@ const goToCitationsView = (id) => {
   <div v-if="isPendingRefresh"><div class="spinner"></div> Pending </div>
   <div v-else>
     <div v-for="(item, index) in data" :key="index" class="publication">
-      <h3>
+      <h3 style="margin-top:10px">
         {{ item.scholar.title }}
       </h3>
       <a :href="$router.resolve({ name: 'citations', params: { id: item._id } }).href" target="_blank">
@@ -44,9 +44,5 @@ const goToCitationsView = (id) => {
 </template>
 
 <style scoped>
-.publication {
-  border: 1px solid #ccc;
-  padding: 16px;
-  margin-bottom: 16px;
-}
+
 </style>

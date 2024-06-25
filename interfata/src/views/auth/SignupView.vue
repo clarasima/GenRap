@@ -57,7 +57,7 @@ const toggleConfirmPasswordVisibility = () => {
 </script>
 
 <template>
-    <form v-if="!success" @submit.prevent="handleSubmit">
+    <form v-if="!success" @submit.prevent="handleSubmit" style="width:30%">
         <h3>Sign up</h3>
         <input type="text" placeholder="Name" v-model="name">
         <input type="text" placeholder="Username" v-model="username">

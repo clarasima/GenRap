@@ -18,7 +18,7 @@ async function handleClick() {
     <nav>
       <img class="reports-icon" src="../assets/reports.svg" alt="Reports" />
       <h1>
-        <router-link :to="{ name: 'home' }">GenRap</router-link>
+        <router-link :to="{ name: 'home' }" style="color:#14b8a6">GenRap</router-link>
       </h1>
       <div class="links">
         <div v-if="token">

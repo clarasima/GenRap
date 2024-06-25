@@ -85,7 +85,7 @@ ul li {
 }
 
 a {
-  color: blue;
+  color: var(--teal--500);
   text-decoration: none;
 }
 a:hover {

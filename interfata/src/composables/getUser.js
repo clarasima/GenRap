@@ -28,8 +28,8 @@ export const getUserName = () => {
   }
 }
 export const getUserFields = () => {
-  if (user.value.desiredFields) {
-    let desiredFields = user.value.desiredFields
+  if (user.value.desired_fields) {
+    let desiredFields = user.value.desired_fields
 
     // Check if desiredFields is not an array
     if (!Array.isArray(desiredFields)) {

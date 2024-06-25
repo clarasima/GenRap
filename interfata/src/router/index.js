@@ -3,10 +3,10 @@ import HomeView from '../views/HomeView.vue'
 import Login from '../views/auth/LoginView.vue';
 import UserProfile from '../views/UserProfile.vue';
 import Signup from '../views/auth/SignupView.vue';
-import CreateReport from '../views/reports/CreateReport.vue';
-import MyPublications from '../views/reports/PublicationsView.vue';
+import CreateReport from '../views/CreateReport.vue';
+import MyPublications from '../views/PublicationsView.vue';
 import MyPublCitations from '@/views/PubCitationsView.vue';
-import CitationsView from '../views/reports/CitationsView.vue';
+import CitationsView from '../views/CitationsView.vue';
 import { getToken } from '@/composables/tokenManagement';
 
 const routes = [

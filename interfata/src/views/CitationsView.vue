@@ -5,8 +5,7 @@ import CitationItem from '@/components/Citations/CitationItem.vue';
 import EditCitation from '@/components/Citations/EditCitation.vue';
 import { getCSV } from '@/composables/getUser';
 const props = defineProps({
-  id: String,
-  title: String
+  id: String
 });
 
 const citations = ref([]);
@@ -118,22 +117,31 @@ function removeField(field) {
 <template>
 
   <div>
-    <h1>Citations <i>"{{ title }}"</i></h1>
-    <p>We were able to process {{ citations.length }} citations out of {{ expectedNumber }}.</p>
+    <h2 style=" text-align: center;">{{ title }}</h2>
+    <div>
+      <div v-if="!isPendingRefresh" class="data-summary">
+        <div class="card">
+          <h4>Total Citations</h4>
+          <p class="count">{{ citations.length }}</p>
+        </div>
+        <div class="card">
+          <h4>Expected Citations</h4>
+          <p class="count">{{ expectedNumber }}</p>
+        </div>
+      </div>
+    </div>
+    <p>
+      <a :href="linkHref" target="_blank" style="color:var(--teal--500); text-decoration: underline;">
+        See Google Scholar citations page
+      </a>
+    </p>
     <!-- REFRESH DATA -->
     <div v-if="isPending">
       <div class="spinner"></div>
-Refreshing
+      Refreshing
     </div>
     <button v-else @click="refreshCitationsLocal">Update citations</button>
     <div v-if="error" style="color:red">{{ error }}</div>
-    <div v-if="error === false" style="color:green">The data has been refreshed successfully.</div>
-    <!-- link -->
-    <p>
-      <a :href="linkHref" target="_blank" style="color:blue; text-decoration: underline;">
-        See scholar citations page
-      </a>
-    </p>
 
     <!-- Report -->
     <button v-if="!reportMode" @click="toggleReportMode">Make Citation Report</button>
@@ -146,8 +154,9 @@ Refreshing
         <button @click="addField" class="btn">Add Field</button>
       </div>
       <ul class="field-list">
-        <li v-for="field in selectedFields" :key="field" class="field-item">
-          {{ field }} <button @click="removeField(field)" class="btn btn-remove">Remove</button>
+        <li v-for="field in selectedFields" :key="field" >
+        <div class="field-item">{{ field }}</div>
+           <button @click="removeField(field)" class="btn btn-remove">Remove</button>
         </li>
       </ul>
       <button @click="getSelectedCitations('excel', 'citations.xlsx')">Get Excel Report</button>
@@ -173,7 +182,7 @@ Refreshing
         </div>
       </div>
     </div>
-    <div v-else>
+    <div v-else-if="!isPendingRefresh">
       <p>No citations found.</p>
     </div>
   </div>
@@ -238,4 +247,52 @@ button {
   margin-bottom: 5px;
 }
 
+
+
+.data-summary {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 150px;
+}
+
+.card h4 {
+  margin: 0 0 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+.card .count {
+  font-size: 18px;
+  font-weight: bold;
+  color: #14b8a6;
+}
+
+
+.field-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.field-item {
+  white-space: nowrap; 
+  background-color: #14b8a6; 
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+}
 </style>

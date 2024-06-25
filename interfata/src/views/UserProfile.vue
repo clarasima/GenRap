@@ -15,8 +15,8 @@ watchEffect(() => {
 
 <template>
   <div v-if="error" class="error">{{ error }}</div>
-  <div v-if="!isPending && user" class="user-card">
-    <h2>User Information</h2>
+  <div v-if="!isPending && user" style="max-width: 50%; margin: 20px auto;" class="publication">
+    <h2 style="text-align: center;">User Information</h2>
     <div class="user-detail">
       <p class="label">Name:</p>
       <p class="value">{{ user.name }}</p>
@@ -81,7 +81,7 @@ watchEffect(() => {
 }
 
 .user-detail .value a {
-  color: blue;
+  color: var(--teal--500);
   text-decoration: underline;
 }
 </style>

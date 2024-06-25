@@ -24,7 +24,7 @@ const togglePasswordVisibility = () => {
 </script>
 
 <template>
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="handleSubmit" style="width:30%">
         <h3>Log in</h3>
         <input type="text" placeholder="Username" v-model="username">
         
