@@ -78,7 +78,7 @@ const toggleConfirmPasswordVisibility = () => {
             </button>
         </div>
 
-        <div class="checkbox-container">
+        <div class="checkbox-container2">
             <input type="checkbox" id="missingScholar" v-model="scholarMissing">
             <label for="missingScholar">I don't have a Scholar profile</label>
         </div>
@@ -86,7 +86,7 @@ const toggleConfirmPasswordVisibility = () => {
             <input type="url" placeholder="Scholar profile URL" v-model="scholar">
         </div>
 
-        <div class="checkbox-container">
+        <div class="checkbox-container2">
             <input type="checkbox" id="missingDblp" v-model="dblpMissing">
             <label for="missingDblp">I don't have a DBLP profile</label>
         </div>
@@ -106,17 +106,17 @@ const toggleConfirmPasswordVisibility = () => {
 </template>
 
 <style scoped>
-.checkbox-container {
+.checkbox-container2 {
   display: inline-flex;
   align-items: center;
   margin-bottom: 8px; /* Adds some space below each checkbox-container for better spacing */
 }
 
-.checkbox-container input[type="checkbox"] {
+.checkbox-container2 input[type="checkbox"] {
   transform: scale(1.2); /* Optionally scale the checkbox for better visibility */
 }
 
-.checkbox-container label {
+.checkbox-container2 label {
   margin: 0; /* Remove any default margin from the label */
 }
 
